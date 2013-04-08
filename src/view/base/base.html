@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="x-ua-compatible" content="IE=7"/>
+<meta charset="utf-8">
+<title>imeal后台管理系统</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="david">
+<!-- Le styles -->
+<link href="{{_base_url}}/static/meal/css/bootstrap.css" rel="stylesheet">
+
+<!-- Le fav and touch icons -->
+<link rel="shortcut icon" href="{{_base_url}}/static/meal/ico/favicon.ico">
+<link rel="apple-touch-icon" href="{{_base_url}}/static/meal/ico/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="{{_base_url}}/static/meal/ico/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="{{_base_url}}/static/meal/ico/apple-touch-icon-114x114.png">
+{% block link %}
+{% endblock %}
+<!-- Generic page styles -->
+<link rel="stylesheet" href="{{_base_url}}/static/meal/jquery_upload/css/style.css">
+<!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+<link rel="stylesheet" href="{{_base_url}}/static/meal/jquery_upload/css/jquery.fileupload-ui.css">
+<script src="{{_base_url}}/static/meal/js/jquery-1.7.2.min.js"></script>
+<script src="{{_base_url}}/static/meal/js/bootstrap-dropdown.js"></script>
+<script>
+var img_host = "http://dev.ihuanyue.me:8080/media/pic/";
+var a = 1;
+function selectAll() 
+{ 
+	var el=document.getElementsByName("checkbox"); 
+	if(a == 2)
+	{
+		a =1;
+		for (var i=0;i<el.length;i++) 
+		{ 
+			if(el[i].type=="checkbox") 
+			{ 
+				el[i].checked=false; 
+			} 
+		} 
+	}else{
+		a = 2;
+		for (var i=0;i<el.length;i++) 
+		{ 
+			if(el[i].type=="checkbox") 
+			{ 
+				el[i].checked=true; 
+			} 
+		} 
+	}
+} 
+//全选 end
+</script>
+</head>
+  <body data-spy="scroll" data-target=".subnav" data-offset="50">
+<div class="navbar navbar-fixed-top" >
+  <!-- navbar-inner -->
+  <div class="navbar-inner">
+    <!-- container -->
+    <div class="container"> <a class="brand" href="home_information.html">meal</a>
+      <!-- nav-collapse -->
+      
+
+
+      <div class="nav-collapse">
+        <ul class="nav">
+              
+          <li ><a href="/admin/welcome"><b class="ic5"></b>首页<b class="caret"></b></a>
+          </li>
+           
+          <li class="dropdown"><a href="javascript:void(0)" class="dropdown-toggle"data-toggle="dropdown"><b class="ic1"></b>用户管理<b class="caret"></b></a>
+          	<ul class="dropdown-menu">
+              <li><a href="/admin/show">系统用户</a></li>
+	       <li><a href="/service/show">服务商用户</a></li>
+                <li><a href="/consumer/show">普通用户</a></li>
+            </ul>
+          </li>
+           
+          <li class="dropdown"><a href="javascript:void(0)" class="dropdown-toggle"data-toggle="dropdown"><b class="ic4"></b>供应管理<b class="caret"></b></a>
+		   <ul class="dropdown-menu">
+              <li><a href="/food/show">食物列表</a></li>
+              <li><a href="/category/show">分类列表</a></li>
+	     <li><a href="/groups/show">组合列表</a></li>
+		 <li><a href="/orders/show">订单列表</a></li>
+               
+            </ul>
+		  </li>
+            
+		  <li class="dropdown"><a href="javascript:void(0)" class="dropdown-toggle"data-toggle="dropdown"><b class="ic4"></b>系统服务<b class="caret"></b></a>
+		   <ul class="dropdown-menu">
+             
+              <li><a href="/notice/show">新闻公告</a></li>
+			  <li><a href="/cms/magazines">杂志列表</a></li>
+			  <li><a href="/cms/conf">书架配置</a></li>
+                          <li><a href="/admincmscover/get_cover">cover</a></li>
+            </ul>
+		  </li>
+          
+		 
+          </li>
+        </ul>
+          
+        <ul class="nav pull-right">
+          <li id="fat-menu" class="dropdown"><a href="" class="dropdown-toggle"data-toggle="dropdown">{{name}}<b class="caret"></b></a>
+		  <ul class="dropdown-menu">
+              <li><a href="/adminaccount/user_quit">退出</a></li>
+            </ul>
+		  </li>
+        </ul>
+      </div>
+      <!--/.nav-collapse -->
+    </div>
+    <!-- /.container -->
+  </div>
+  <!-- /.navbar-inner -->
+</div>
+<div class="container" >
+{% block content %}
+{% endblock %}
+
+<iframe id="ifa" src="javascript:void(0);" style="display:none;" name="ifa" width="220" height="30"></iframe>
+<script src="{{_base_url}}/static/meal/jquery_upload/js/vendor/jquery.ui.widget.js"></script>
+<script src="{{_base_url}}/static/meal/jquery_upload/js/jquery.iframe-transport.js"></script>
+<script src="{{_base_url}}/static/meal/jquery_upload/js/jquery.fileupload.js"></script>
+<script src="{{_base_url}}/static/meal/jquery_upload/js/cors/jquery.xdr-transport.js"></script>
+<script src="{{_base_url}}/static/meal/jquery_upload/js/cors/jquery.postmessage-transport.js"></script>
+
+
+
+
+  <div class="footer">
+      <p class="pull-right"><a href="javascript:void(0)">top</a></p>
+      <p>Copyright © 2012 时尚传媒集团版权所有</p>
+  </div>
+</div>
+<!-- Placed at the end of the document so the pages load faster -->
+</body>
+</html>

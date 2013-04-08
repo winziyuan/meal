@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.html or http://ckeditor.com/license
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>BBCode Plugin &mdash; CKEditor Sample</title>
+	<meta content="text/html; charset=utf-8" http-equiv="content-type" />
+	<script type="text/javascript" src="./ckeditor.js"></script>
+<!--	<script src="sample.js" type="text/javascript"></script>
+	<link href="sample.css" rel="stylesheet" type="text/css" />-->
+</head>
+<body>
+	<form action="sample_posteddata.php" method="post">
+		<p>
+			<textarea cols="40" id="editor1" name="editor1" rows="10">This is some [b]sample text[/b]. You are using .</textarea>
+			<script type="text/javascript">
+			//<![CDATA[
+
+			// Replace the <textarea id="editor"> with an CKEditor
+			// instance, using the "bbcode" plugin, shaping some of the
+			// editor configuration to fit BBCode environment.
+			CKEDITOR.replace( 'editor1',
+				{
+					extraPlugins : 'bbcode',
+					// Remove unused plugins.
+					removePlugins : 'bidi,button,dialogadvtab,div,filebrowser,flash,format,forms,horizontalrule,iframe,indent,justify,liststyle,pagebreak,showborders,stylescombo,table,tabletools,templates',
+					// Width and height are not supported in the BBCode format, so object resizing is disabled.
+					disableObjectResizing : true,
+					// Define font sizes in percent values.
+					fontSize_sizes : "30/30%;50/50%;100/100%;120/120%;150/150%;200/200%;300/300%",
+					toolbar :
+					[
+						['Source', '-', 'Save','NewPage','-','Undo','Redo'],
+						['Find','Replace','-','SelectAll','RemoveFormat'],
+						['Link', 'Unlink', 'Image', 'Smiley','SpecialChar'],
+						['Bold', 'Italic','Underline'],
+						['FontSize'],
+						['TextColor'],
+						['NumberedList','BulletedList','-','Blockquote'],
+						['Maximize']
+					],
+					// Strip CKEditor smileys to those commonly used in BBCode.
+					smiley_images :
+					[
+						'regular_smile.gif','sad_smile.gif','wink_smile.gif','teeth_smile.gif','tounge_smile.gif',
+						'embaressed_smile.gif','omg_smile.gif','whatchutalkingabout_smile.gif','angel_smile.gif','shades_smile.gif',
+						'cry_smile.gif','kiss.gif'
+					],
+					smiley_descriptions :
+					[
+						'smiley', 'sad', 'wink', 'laugh', 'cheeky', 'blush', 'surprise',
+						'indecision', 'angel', 'cool', 'crying', 'kiss'
+					]
+			} );
+
+			//]]>
+			</script>
+		</p>
+		<p>
+			<input type="submit" value="Submit" />
+		</p>
+	</form>
+	
+</body>
+</html>

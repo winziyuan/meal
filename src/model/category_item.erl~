@@ -1,0 +1,24 @@
+%%%====================================================================                             
+%%% File    : food4category.erl
+%%% Author  : my name <xiangxiancan@trends.com.cn>
+%%% Description  : this is require module
+%%%==================================================================== 
+
+%%%--------------------------------------------------------------------- 
+%%% Revision History
+%%%--------------------------------------------------------------------- 
+%%% reconstructing and adding spec
+%%%--------------------------------------------------------------------- 
+-module(food4category, 
+                [ Id,
+                  Foodname,
+                  Categoryname,
+                  Sellername,
+                  Foodid,
+                  Categoryid,
+                  Sellerid,
+                  Createtime,
+                  Timesec
+                ]).
+-revision('meal: 1.0').
+-created('Date: 2012/10/10 12:30:00').

@@ -1,0 +1,199 @@
+/*!
+ * Bootstrap v2.0.0
+ *
+ * Copyright 2012 Twitter, Inc
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Designed and built with all the love in the world @twitter by @mdo and @fat.
+ */
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, button, textarea, p, blockquote, th, td {
+padding: 0;
+margin: 0;
+}
+body, textarea, select, input, button {
+font-family: "Microsoft YaHei","微软雅黑",tahoma,arial,simsun,"宋体";
+}
+div {
+display: block;
+}
+input[type="button"], input[type="submit"], input[type="reset"], input[type="file"]::-webkit-file-upload-button, button {
+-webkit-box-align: center;
+text-align: center;
+cursor: default;
+color: buttontext;
+padding: 2px 6px 3px;
+border: 2px outset buttonface;
+border-image: initial;
+background-color: buttonface;
+box-sizing: border-box;
+}
+user agent stylesheetinput, textarea, keygen, select, button, isindex {
+margin: 0em;
+font: -webkit-small-control;
+color: initial;
+letter-spacing: normal;
+word-spacing: normal;
+text-transform: none;
+text-indent: 0px;
+text-shadow: none;
+display: inline-block;
+text-align: -webkit-auto;
+
+}
+.m-login { position:absolute; width:700px; margin:0 auto; z-index:100; top:30%;
+transition: all 0.3s;
+-webkit-transition: all 0.3s;
+-moz-transition: all 0.3s;
+-o-transition: all 0.3s;
+position: absolute;
+top: 70%;
+left: 50%;
+height: 280px;
+margin: -140px 0 0 -350px;
+z-index: 10;
+}
+.g-bdfull2 {
+text-align: left;
+}
+.w-account {
+width: 900px;
+}
+.w-account .w0 {
+width: 273px;
+margin-right: 7px;
+}
+.w-account li {
+position: relative;
+float: left;
+height: 52px;
+font-size: 14px;
+line-height: 52px;
+}
+li {
+list-style: none;
+}
+
+.w-account .inpt {
+position: relative;
+zoom: 1;
+z-index: 10;
+height: 23px;
+padding: 13px 20px 14px;
+background-position: 0 -110px;
+line-height: 23px;
+}
+input, input[type="password"], input[type="search"], isindex {
+-webkit-appearance: textfield;
+padding: 1px;
+background-color: white;
+border: 2px inset;
+border-image: initial;
+-webkit-rtl-ordering: logical;
+-webkit-user-select: text;
+cursor: auto;
+}
+.w-account .txt {color:#999;
+position: absolute;
+top: 12px;
+left: 15px;
+width: 232px;
+border: 0;
+outline: none;
+font-size: 20px; background-color:transparent;
+}
+.w-account .inpt {
+line-height: 23px;
+}
+.j-ok {position: absolute;
+top: 0;
+left: 0;
+width: 18px;
+height: 18px; 
+background-image:url(../img/xz.png);background-repeat: no-repeat;background-position: left -30px ;
+}
+ .c {
+position: absolute;
+top: 0;
+left: 0;
+width: 18px;
+height: 18px; background-image:url(../img/xz.png);background-repeat: no-repeat;background-position: left top ;
+
+}
+.w-account .sd {
+line-height: 19px;
+}
+.w-account .chkbox {
+position: relative;
+display: inline-block;
+padding-left: 23px;
+margin-right: 22px;
+color: #BFBFBF;
+cursor: pointer;
+}
+.w-account .sd {
+height: 19px;
+padding: 17px 0 16px 280px;
+line-height: 19px;
+}
+.w-account .w0 {
+width: 273px;
+margin-right: 7px;
+}
+.m-stwrap .sd {
+text-shadow: 0 0 3px black;
+}
+.w-account a, .w-account a:hover {
+color: #F0F0F0;
+font-size: 14px;
+}
+a {text-shadow: 0 0 3px black;
+text-decoration: none;
+color: #444;
+outline: none;
+}
+a, button {
+cursor: pointer;
+}
+.w-account .chkbox input {
+visibility: hidden;
+}
+.ts{ color:#fff;text-shadow: 0 0 3px black; padding-bottom:30px; text-align:center;}
+.w-account .btn { cursor:pointer; text-align:left;
+	display: block;
+	z-index: 10;
+	width: 139px;
+	height: 55px;
+	background-color: Transparent;
+	border: 0;
+	background-image:url(../img/buttom.png);
+	font-size:25px;  color:#fff; 
+	background-repeat: no-repeat;
+}
+.w-account .btn span{ line-height:30px; margin-left:28px;}
+.m-stwrap .sd {
+text-shadow: 0 0 3px black;
+}
+.placeholder{
+position: absolute;
+top: 13px;
+left: 20px;
+font-size: 20px;
+color: #43474B;
+cursor: text;
+white-space: nowrap;
+}
+.clear{ clear:both;}
+.left{ float:left;}
+.right{ float:right;}
+.boxbj{ width:100%; height:430px; position:  absolute;overflow:hidden;}
+.boxbjphoto{ width:100%; height:100%;}
+ .inpt { border:1px #FFF solid; background-color:#25282b;
+height: 23px;
+padding: 13px 20px 14px; width:220px;
+line-height: 23px;}
+.header{ width:900px; margin:auto;}
+.header img{ margin-top:100px; margin-bottom:25px;}
+.text{margin-top:123px; font-size:12px; color:#c1c1c1; }
+
+

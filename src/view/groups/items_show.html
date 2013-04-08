@@ -1,0 +1,63 @@
+{% extends "base/base.html" %}
+{% block content %}
+
+	<!-- page-header-->
+      <div class="page-header">
+        <h3>组合-详细</h3>
+       <div class="fh"><a href="/groups/show">返回</a></div>
+      </div>
+	  <!-- /page-header-->
+	    
+	  <div class="g2"><span id="error_content_id" class="yell"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  	
+                <!--<input class="btn btn-success" type="button" onclick="window.location='/adminaccount/trends_user'" value="搜索"></input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+                <input class="btn" type="button" onclick="window.location='/{{controller}}/items_add/{{relateid}}'" value="添加"></input>&nbsp;&nbsp;&nbsp;&nbsp;
+	  	<input class="btn" type="button" onclick="del_('',1,'{{controller}}')" value="删除"></input></div>
+	  <table class="table table-striped table-bordered table-condensed ter">
+        <thead>
+          <tr>
+            <th><input type="checkbox" id="inlineCheckbox" onclick="selectAll()" name="" value="option1">&nbsp;全选</th>
+           <th>食物名</th>
+            <th>所属分类</th>    
+            <th>单价</th> 
+            <th>数量</th>              
+            <th>创建者</th>           
+            <th>创建时间</th>           
+          </tr>
+        </thead>
+        <form method="get" id="user_get_page" action="/{{controller}}/items_show/{{relateid}}">
+        <tbody>
+        	{% for item in items %}
+        		<tr id="item_{{item.id}}">
+		            <td><input type="checkbox" id="inlineCheckbox1" name="checkbox" value="{{item.id}}"></td>
+                            <td>{{item.foodname}}</td>
+                            <td>{{item.relatename}}</td>
+                            <td>{{item.price}}</td> 
+                            <td>{{item.sum}}</td> 		           
+                            <td>{{item.sellername}}</td>                                                
+                            <td>{{item.createtime}}</td>
+		           
+          		</tr>
+        	{% endfor %}
+        </tbody>
+        <input type="hidden" name="page_get" id="page_get" value="{{current_p}}"/>
+        <input type="hidden"  id="count_get" value="{{page_count}}"/>
+        </form>
+      </table>
+	  <!-- /.pagination -->
+      <div class="pagination">
+      	<input type="hidden" name="method_type" id="method_type" value="{{method_type}}"/>
+        <ul>
+          <li {% if current_p=="1" %} class="disabled" {% endif %}><a href="javascript:void(0);" {% if current_p=="1" %} class="disabled" {% endif %} id="page_on" >上一页</a></li>
+          <li {% if current_p==page_count %}class="disabled" {% endif %}><a href="javascript:void(0);" {% if current_p=="1" %} class="disabled" {% endif %} id="page_under">下一页</a></li>		  
+        </ul>
+		<ul>第<strong class="red">{{current_p}}</strong>页/共{{page_count}}页/数量: <strong class="blue">{{count}}</strong></ul>
+		<ul>跳转至 <input type="text" id="page_go_number" placeholder="1" class="span1"> 页　<button class="btn" type="button" id="page_go">确定</button></ul>
+      </div>
+	  <div class="clear"></div>
+	  <!-- container -->
+
+<script language="javascript" type="text/javascript" src="{{_base_url}}/static/meal/js/time/WdatePicker.js"></script>
+<script src="{{_base_url}}/static/meal/js/food_item.js"></script>
+<script src="{{_base_url}}/static/meal/js/base.js"></script>
+{% endblock %}

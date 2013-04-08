@@ -1,0 +1,54 @@
+{% extends "base/base.html" %}
+{% block content %}
+<!-- container -->
+<div class="container" >
+	<!-- page-header-->
+      <div class="page-header">
+        <h3>组合-添加</h3>
+		<div class="fh"><a href="/groups/show">返回</a></div>
+               
+      </div>
+	  <!-- /page-header-->
+	
+	  		
+                 
+	  <span id="error_content_id" class="yell"></span>
+	  <form action="" method="post" id="create_groups_form">
+	  <table class="table table-striped table-bordered table-condensed">
+        <tbody>
+          <tr>
+            <td class="w230">组合名
+              ：</td>
+            <td><input type="text" id="name" name="name" ></td>
+          </tr>
+       
+           <tr>
+            <td class="w230">描述：</td>
+            <td>
+            	<input type="text" name="desc" id="desc">            
+            </td>
+          </tr>
+      
+         <tr>
+          <td class="w230">是否使用：</td>           
+              <td>
+	        <input type="radio" name="isused" value="true" checked/>是&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" name="isused" value="false" /> 否
+            </td>                    
+          </tr>
+
+          </form>
+	
+
+          <tr>
+            <td class="w230"></td>
+            <td><button class="btn btn-large btn-primary" id="create_submit" type="button">确定</button></td>
+          </tr>
+        </tbody>
+      </table>
+    
+</div>
+
+<script src="{{_base_url}}/static/meal/js/groups.js"></script>
+<!-- /.container -->
+{% endblock %}

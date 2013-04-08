@@ -1,0 +1,139 @@
+{% extends "base/base.html" %}
+{% block content %}
+<!-- container -->
+<div class="container" >
+	<!-- page-header-->
+      <div class="page-header">
+        <h3>普通用户-修改</h3>
+		<div class="fh"><a href="/consumer/show">返回</a></div>
+               
+      </div>
+	  <!-- /page-header-->
+	
+	  		
+                 
+	  <span id="error_content_id" class="yell"></span>
+	  <form action="" method="post" id="edit_consumer_form">
+	  <table class="table table-striped table-bordered table-condensed">
+        <tbody>
+          <tr>
+            <td class="w230">用户名：</td>
+            <td><input type="text" id="name" name="name" value="{{consumer.name|default:''}}"></td>
+          </tr>
+            <tr>
+            <td class="w230">年龄：</td>
+            <td>
+            	<input type="number" name="age" id="age" value="{{consumer.age|default:''}}">            
+            </td>
+          </tr>
+         
+          <tr>
+          <td class="w230">性别：</td>           
+              <td>
+	       <input type="radio" name="sex" value=1 {% if consumer.sex == 1 %} checked {% endif %} />男&nbsp;&nbsp;&nbsp;
+               <input type="radio" name="sex" value=0 {% if consumer.sex == 0 %} checked {% endif %}  />女&nbsp;&nbsp;&nbsp;
+              <input type="radio" name="sex" value=2 {% if consumer.sex == 2 %} checked {% endif %}  />未知
+          </td>                    
+          </tr>
+
+          <tr>
+            <td class="w230">密码：</td>
+            <td>
+              <input type="password"  name="passwd" id="passwd" value="{{consumer.passwd|default:''}}">            
+            </td>
+          </tr>
+              <tr>
+            <td class="w230">重复密码：</td>
+            <td>
+              <input type="password"  name="repasswd" id="repasswd" value="{{consumer.passwd|default:''}}">            
+            </td>
+          </tr>
+             <tr>
+            <td class="w230">邮箱：</td>
+            <td>
+              <input type="email"  name="email" id="email" value="{{consumer.email|default:''}}">            
+            </td>
+          </tr>
+           <tr>
+            <td class="w230">个性签名：</td>
+            <td>           	 
+                 <textarea cols="50" name="note" id="note">{{consumer.note|default:''}}</textarea>       
+            </td>
+          </tr>
+            <tr>
+            <td class="w230">薪水：</td>
+            <td>
+              <input type="number"  name="salary" id="salary" value="{{consumer.salary|default:0}}">            
+            </td>
+          </tr>
+           <tr>
+            <td class="w230">联系方式(电话)：</td>
+            <td>
+              <input type="number"  name="phone" id="phone" value="{{consumer.phone|default:''}}">            
+            </td>
+          </tr>
+          <tr>
+         <td class="w230">积分：</td>
+            <td>
+              <input type="number"  name="integration" id="integration" value="{{consumer.integration|default:0}}">            
+            </td>
+          </tr>
+         
+         <tr>
+          <td class="w230">是否禁用：</td>           
+              <td>
+	        <input type="radio" name="isused" value="true" {% if consumer.isused == "true" %} checked {% endif %} />否&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" name="isused" value="false" {% if consumer.isused == "false" %} checked {% endif %} /> 是
+            </td>                    
+          </tr>
+
+	
+           <input type="hidden" name="id" id="id" value="{{consumer.id}}"/>
+           <input type="hidden" name="icon" id="icon" value="{{consumer.avator|default:''}}"/>
+           <input type="hidden" name="creator" id="creator" value="{{consumer.creator|default:''}}"/>
+           <input type="hidden" name="createtime" id="createtime" value="{{consumer.createtime|default:''}}"/>
+           <input type="hidden" name="timesec" id="timesec" value="{{consumer.timesec|default:''}}"/>
+          </form>
+	   <tr>            
+            <td class="w230">Avator/头像：</td>
+            <td>
+	            <form action="{{img_upload_url}}" method="POST" id="upload_img" enctype="multipart/form-data" target="ifa">
+            		<span class="btn btn-success fileinput-button">                    	
+                    	<span>选择文件</span>
+                    	<input type="file" name="files" >
+                    </span>
+            	</form>
+            	
+            </td>
+          </tr>
+          <tr>
+            <td class="w230">预览：</td>
+            <td id="view_img">
+	         <img width='90' height='78' src='{{consumer.avator|default:''}}'  />
+            </td>
+          </tr>
+
+          <tr>
+            <td class="w230"></td>
+            <td><button class="btn btn-large btn-primary" id="edit_submit" type="button">确定</button></td>
+          </tr>
+        </tbody>
+      </table>
+    
+</div>
+<iframe id="ifa" src="javascript:void(0);" style="display:none;" name="ifa" width="220" height="30"></iframe>
+<script type="text/javascript">
+ 	
+ 	var pa = true;
+ 	$(document).ready(function()   
+    {   
+        $("form :input").change(function ()   
+        {   
+        	pa = false;
+        	$("#change_").val(pa);
+        }); 
+	});	
+</script>
+<script src="{{_base_url}}/static/meal/js/consumer.js"></script>
+<!-- /.container -->
+{% endblock %}

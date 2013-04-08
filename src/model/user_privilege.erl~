@@ -1,0 +1,7 @@
+-module(user_privilege, [Id,
+               UserId,
+               PrivilegeId,
+               UserName,
+               PrivilegeDesc,
+               CreateTime
+              ]). 

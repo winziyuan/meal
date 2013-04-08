@@ -1,0 +1,695 @@
+var oTimer = null;
+var clist=[];
+var plist=[];
+var slist=[];
+var sidlist = [];
+var temlist = [];
+$(function () {
+	var num = 1;
+	$('#upload_img_').fileupload('option', {
+   	 xhrFields: {
+    	    withCredentials: false
+    	    }
+    });  
+  
+    $('#upload_img_').fileupload({
+        dataType: 'iframejson',
+		  converters: {
+		    'html iframejson': function(htmlEncodedJson) {
+		    	return_img(htmlEncodedJson);
+		    },
+		    'iframe iframejson': function (iframe) {
+		    	result = iframe.find('body').text();
+		    	return_img(result);
+		    }
+		  }
+    });
+    $('#upload_img_').bind('fileuploadchange', function (e, data) {
+    	$("#progress_").show();
+    }).bind('fileuploadprogressall', function (e, data) {
+    	var progress = parseInt(data.loaded / data.total * 100, 10);
+    	$('#progress_ .bar').css('width', progress + '%');
+    });
+    		/*var J = $("#context_tail").val();
+          	var ss = eval(J);
+          	alert(ss.length);
+          	alert(ss[0].bt1);
+          	var j_json_obj = $.parseJSON(J);
+          	//alert(j_json_obj.bt1);
+          	var unicode= BASE64.decoder('{{base64}}');//返回会解码后的unicode码数组。  
+  
+          	//可由下面的代码编码为string  
+  
+			var str = '';  
+			for(var i = 0 , len =  unicode.length ; i < len ;++i){  
+			      str += String.fromCharCode(unicode[i]);  
+			}  
+			alert(str);*/
+});
+
+function return_img(result)
+{
+	if(result == "file error")
+	{
+		$("#progress_").hide();
+		$("#error_content_id").html("文件格式错误!");
+		$("#error_content_id").show();
+	}else if(result == "file error")
+	{
+		$("#progress_").hide();
+		$("#error_content_id").html("图片上传失败!");
+		$("#error_content_id").show();
+	}else
+	{ 
+		$("#upload_img").hide();
+		$("#icon").val('')
+		var url = img_host+result;
+        $("#upload_img").show();
+        img_pre(url);
+		$("#submit_form").attr("disabled", false);
+		$("#file").attr("disabled", false);
+		$("#icon").val(url);
+                  
+		setInterval("$('#progress_').hide()",3000);
+	}
+};
+
+// init
+$(function () {
+    if($("#context_tail").length>0){
+         if($.trim($("#context_tail").val())!=""){
+	         clist=$.parseJSON($("#context_tail").val());
+        }else{
+	        clist=[];
+	    }; 
+     
+    };
+              
+    if($("#img_tail").length>0){
+         if($.trim($("#img_tail").val())!=""){
+              plist=$.parseJSON($("#img_tail").val());
+         }else
+         	  plist=[];
+     
+    };
+    var style_content_edit = $("#style_content_edit");
+    var style_id_edit = $("#style_id_edit");
+    if(style_content_edit.length>0){
+         if($.trim(style_content_edit.val()) != ""){
+	         slist=$.parseJSON(style_content_edit.val());
+        }else{
+	        slist=[];
+	    }; 
+     
+    };
+    if(style_id_edit.length>0){
+         if($.trim(style_id_edit.val()) != ""){
+	         sidlist=$.parseJSON(style_id_edit.val());
+        }else{
+	        sidlist=[];
+	    }; 
+     
+    };
+    var tem_id = $("#tem_id");
+    if(tem_id.length>0){
+         if($.trim(tem_id.val()) != ""){
+	         temlist=$.parseJSON(tem_id.val());
+        }else{
+	        temlist=[];
+	    }; 
+     
+    };
+    var sid = $("#style_id_edit_now").val();
+    var frist_tem_id = $("#frist_tem_id").val();
+    $("input[name=style_type][value=\""+sid+"\"]").attr("checked",true);
+    $("input[name=radio][value=\""+frist_tem_id+"\"]").attr("checked",true);
+    tem_id.remove();
+    style_id_edit.remove();
+    style_content_edit.remove();
+    $("#context_tail").remove();
+    $("#img_tail").remove();
+    $("#showpage").text($("#currentpage").val());
+    $("#showcount").text($("#pagecount").val());
+    before_is(); 
+
+    
+});
+
+// before is diss
+function before_is(){
+  if(parseInt($("#currentpage").val())>1){
+     $("#before_create_page").removeAttr("disabled");              
+  }else{
+     $("#before_create_page").attr("disabled","disabled");   
+  };
+};
+//get pagenumber
+function get_page(type){
+     if(type=="after"){
+    
+      if($("#currentpage").val()==$("#pagecount").val()){
+         var a_page=(parseInt($("#currentpage").val())+1).toString(); 
+         $("#pagecount").val(a_page)  
+          return a_page;
+     }else{
+           var a_page=(parseInt($("#currentpage").val())+1).toString(); 
+          return a_page;
+              
+          };
+
+     }else{
+        
+           var b_page=(parseInt($("#currentpage").val())-1).toString();
+           return b_page;
+         
+      };
+};
+function base64decode(list)
+{
+	var str = '';  
+	for(var i = 0 , len =  list.length ; i < len ;++i){  
+		str += String.fromCharCode(unicode[i]);  
+	} ; 
+	str;
+};
+
+// before page
+$("#before_create_page").bind("click",function(){
+          $("#showpage").text($("#currentpage").val());
+          $("#showcount").text($("#pagecount").val());
+          save_item();
+          
+          var p_page=get_page("before");
+ 
+          $("#currentpage").val(p_page);
+          $("#showpage").text($("#currentpage").val());
+          var context=get_value(clist,p_page);
+          var icon=get_value(plist,p_page);
+          var style_content = get_value(slist,p_page);
+          var style_id = get_value(sidlist,p_page);
+          var tem_id = get_value(temlist,p_page);
+          var edit = $("#edit").val();
+          var base64content = context;
+          var base64stylecontent = style_content;
+	      if(edit == "1"){
+	      		var unicodestyle= BASE64.decoder(base64stylecontent);
+		        var unicode= BASE64.decoder(base64content);//返回会解码后的unicode码数组。  
+				//可由下面的代码编码为string  
+			    var str = '';  
+				for(var i = 0 , len =  unicode.length ; i < len ;++i){  
+					str += String.fromCharCode(unicode[i]);  
+				} ;
+				var str1 = '';  
+				for(var i = 0 , len =  unicodestyle.length ; i < len ;++i){  
+					str1 += String.fromCharCode(unicodestyle[i]);  
+				} ;  
+				base64content = str;
+				base64stylecontent = str1;
+				$("#edit").val("");
+	      }
+          CKEDITOR.instances.summent.setData(base64content);
+          $("#icon").val(icon);
+          $("#style_content").val(base64stylecontent);
+          $("input[name=style_type][value=\""+style_id+"\"]").attr("checked",true);
+          $("input[name=radio][value=\""+tem_id+"\"]").attr("checked",true);
+          img_pre(icon);
+          before_is();
+});
+
+//after page
+$("#after_create_page").bind("click",function(){    
+      if(val_input()){      
+      	save_item();
+      	var a_page=get_page("after");
+      	$("#currentpage").val(a_page);
+      	$("#showpage").text($("#currentpage").val());
+        $("#showcount").text($("#pagecount").val());
+        
+        $("#style_content").val(" ");
+        
+        var context = get_value(clist,a_page);
+        var icon = get_value(plist,a_page);
+        var style_content = get_value(slist,a_page);
+        var style_id = get_value(sidlist,a_page); 
+        var tem_id = get_value(temlist,a_page);
+        var edit = $("#edit").val();
+        var base64content = context;
+          var base64stylecontent = style_content;
+	      if(edit == "1"){
+	      		var unicodestyle= BASE64.decoder(base64stylecontent);
+		        var unicode= BASE64.decoder(base64content);//返回会解码后的unicode码数组。  
+				//可由下面的代码编码为string  
+			    var str = '';  
+				for(var i = 0 , len =  unicode.length ; i < len ;++i){  
+					str += String.fromCharCode(unicode[i]);  
+				} ;
+				var str1 = '';  
+				for(var i = 0 , len =  unicodestyle.length ; i < len ;++i){  
+					str1 += String.fromCharCode(unicodestyle[i]);  
+				} ;  
+				base64content = str;
+				base64stylecontent = str1;
+				$("#edit").val("");
+	      }
+        
+        CKEDITOR.instances.summent.setData(base64content);
+        $("#icon").val(icon); 
+        $("#style_content").val(base64stylecontent);
+        $("input[name=style_type][value=\""+style_id+"\"]").attr("checked",true);
+        $("input[name=radio][value=\""+tem_id+"\"]").attr("checked",true); 
+        img_pre(icon);
+        before_is();
+       };
+
+});
+
+
+
+function save_item(){
+      
+      var v2 = CKEDITOR.instances.summent.getData().replace(/\n/g,'').replace(/"/g, "'");
+      var v=v2.replace(/\t/g,'');
+      var context = "{\""+$('#currentpage').val()+"\":\""+v+"\"}";
+      var icon = "{\""+$('#currentpage').val()+"\":\""+$("#icon").val()+"\"}";
+      
+      var tem_id = $('input:radio[name="radio"]:checked').val(); 
+      var tem_value = "{\""+$('#currentpage').val()+"\":\""+tem_id+"\"}";
+      var style_type_v=$('input:radio[name="style_type"]:checked').val();   
+      var style_type = "{\""+$('#currentpage').val()+"\":\""+style_type_v+"\"}";
+                  
+      var style_content_v=$("#style_content").val();
+      var style_content = "{\""+$('#currentpage').val()+"\":\""+style_content_v+"\"}";
+          
+      
+      
+      var page=$('#currentpage').val();
+
+      if($.trim(CKEDITOR.instances.summent.getData())!=""){
+   
+        save_c(clist,page,$.parseJSON(context));
+      };
+      if($.trim($("#icon").val())!=""){
+    
+       save_p(plist,page,$.parseJSON(icon));
+      }; 
+      if($.trim($("#style_content").val())!=""){
+	    save_p(slist,page,$.parseJSON(style_content));
+      };      
+      save_p(sidlist,page,$.parseJSON(style_type));
+      save_p(temlist,page,$.parseJSON(tem_value));
+};
+
+
+
+//img_pre
+function img_pre(url){
+      if($("#image_pre").length>0){
+        $("#upload_img").remove();
+        var html = "<div id='upload_img' onmousemove=\"$('.gb').show();\" onmouseout=\"$('.gb').hide();\" style='position:relative;float:left;margin-left:10px;'><div style='display:none;' class='gb' onClick=\"$('#upload_img').hide();$('#icon').val('');\"><img src='../static/trends/img/gb.png' /></div><img id='image_pre' width='50' height='67' src='"+url+"'  /></div>";
+        $("#view_img").append(html); 
+      }else{
+	      var html = "<div id='upload_img' onmousemove=\"$('.gb').show();\" onmouseout=\"$('.gb').hide();\" style='position:relative;float:left;margin-left:10px;'><div style='display:none;' class='gb' onClick=\"$('#upload_img').hide();$('#icon').val('');\"><img src='../static/trends/img/gb.png' /></div><img id='image_pre' width='50' height='67' src='"+url+"'  /></div>";
+          $("#view_img").append(html); 
+      } ;
+
+
+};
+
+
+function save_c(list,page,item){
+var is_exist=false;
+var index;
+
+for(var i=0; i<list.length; i++){
+      $.each(list[i] ,function(s){
+         if(s==page){
+           is_exist=true;
+           index=i;
+         };
+      });
+};
+	if(is_exist){
+	    list.splice(index, 1,item);
+	    is_exist=false;
+	    index=undefined; 
+	}else{
+	 	list.push(item);
+	    index=undefined; 
+	};
+};
+
+
+function save_p(list,page,item){
+	var is_exist=false;
+	var index;
+	for(var i=0; i<list.length; i++){
+	      $.each(list[i] ,function(s){
+	            if(s==page){
+	        
+	           is_exist=true;
+	           index=i;
+	           };
+	      });
+	};
+	if(is_exist){
+	  
+	    list.splice(index, 1,item);
+	    is_exist=false;
+	    index=undefined; 
+	}else{	 
+	   list.push(item);
+	   index=undefined; 
+	};
+};
+
+
+function get_value(list,page){
+ 	var value="";
+ 	for(var i=0; i<list.length; i++){
+     if(list[i][page] != undefined){
+       value=list[i][page];
+       //break;
+       };
+     };
+      return value;
+};
+
+
+//======================================
+
+
+//val_input
+function val_input(){
+
+	var title = $("#title").val();
+	var introduction = $("#introduction").val();
+	var summent = CKEDITOR.instances.summent.getData();//$("#summent").val(); 
+	var nodename = $("#nodename").val();
+	var icon = $("#icon").val();
+	if(title == null || title == "")
+	{
+		$("#error_content_id").html("请输入文章标题!");
+		$("#error_content_id").show();
+		$("#title").focus();
+		return false;
+	}
+	if(summent == null || summent == "")
+	{
+		if(!confirm("确定创建没有内容的文章吗？"))
+		{
+		  $("#error_content_id").html("请输入文章标内容!");
+		  $("#error_content_id").show();
+		  $("#summent").focus();
+		  return false;
+		}else
+		{
+			var icon = $("#icon").val();
+			if(icon == null || icon == "")
+			{
+				$("#error_content_id").html("内容与图片必须添加其中一个!");
+		  		$("#error_content_id").show();
+		 		$("#summent").focus();
+		  		return false;
+			}
+		}
+	}
+      
+	if(nodename == null || nodename == "")
+	{
+		$("#error_content_id").html("请选择频道!");
+		$("#error_content_id").show();
+		$("#nodename").focus();
+		return false;
+	}else{
+       $("#error_content_id").html("");
+       return true;
+    };
+};
+
+
+//add disables
+function disable(){
+ $("#before_create_page").attr("disabled","disabled");   
+ $("#after_create_page").attr("disabled","disabled"); 
+ $("#from_submit").attr("disabled","disabled"); 
+};
+
+//remove disable
+function remove_disable(){
+ $("#before_create_page").removeAttr("disabled");       
+ $("#after_create_page").removeAttr("disabled"); 
+ $("#from_submit").removeAttr("disabled"); 
+};
+
+
+//save
+function save()
+{
+  if(val_input()){      
+          save_item();
+          disable();
+         var title= $("#title").val();
+       
+         var introduction= $("#introduction").val();
+    
+         var nodename=$("#nodename").val();
+         alert("============>"+"'"+CKEDITOR.instances.summent.getData()+"'");
+         var pageheading = $("#top").val();
+         var count=(clist.length>=plist.length?clist.length:plist.length);
+         var parms={title:title,introduction:introduction,summent:JSON.stringify(clist),count:count,nodename:nodename,icon:JSON.stringify(plist)
+             ,style_type:JSON.stringify(sidlist),style_content:JSON.stringify(slist),page_header:pageheading,tem_id:JSON.stringify(temlist)};
+
+        var Url = "/admininfo/trends_info_create2";
+    
+	$.post(Url,parms,function(result){
+    	if(result != null)
+		{
+			if(result.result == "ok")
+			{
+                               
+				$("#error_content_id").html("文章创建成功!");
+				$("#error_content_id").show();
+				//window.setInterval("window.location='/admin/info'",2000);
+                window.setInterval("window.location='/admin/info'",2000);
+			}else
+			{       remove_disable();
+				$("#error_content_id").html("服务错误请刷新后进行操作!");
+				$("#error_content_id").show();
+			}
+		}
+    });
+};
+    
+};
+
+
+function edit(id){
+
+
+if(val_input()){      
+          save_item();
+         disable();
+         var id= $("#id").val();
+        var title= $("#title").val();
+   
+         var introduction= $("#introduction").val();
+     
+         var nodename=$("#nodename").val();
+           var count=(clist.length>=plist.length?clist.length:plist.length);
+         var pageheading = $("#top").val();
+         var parms={id:id,title:title,introduction:introduction,summent:JSON.stringify(clist),style_type:JSON.stringify(sidlist),style_content:JSON.stringify(slist),
+         page_count:count,nodename:nodename,icon:JSON.stringify(plist),page_header:pageheading,tem_id:JSON.stringify(temlist)};
+
+        var Url = "/admininfo/trends_info_edit2";
+     
+	$.post(Url,parms,function(result){
+    	if(result != null)
+		{
+			if(result.result == "ok")
+			{      
+				$("#error_content_id").html("文章修改成功!");
+				$("#error_content_id").show();
+				window.setInterval("window.location='/admin/info'",2000);
+			}else
+			{       remove_disable();
+				$("#error_content_id").html("服务错误请刷新后进行操作!");
+				$("#error_content_id").show();
+			}
+		}
+    });
+
+};
+};
+
+
+
+
+
+
+
+//edit content
+$("#content_edit_submmit").bind("click",function(){
+	var title = $("#title").val();
+	var introduction = $("#introduction").val();
+	var summent = CKEDITOR.instances.summent.getData();//$("#summent").val();
+	var nodename = $("#nodename").val();
+	var icon = $("#icon").val();
+	if(title == null || title == "")
+	{
+		$("#error_content_id").html("请输入文章标题!");
+		$("#error_content_id").show();
+		$("#title").focus();
+		return;
+	}
+	if(summent == null || summent == "")
+	{
+		if(!confirm("确定创建没有内容的文章吗？"))
+		{
+		  $("#error_content_id").html("请输入文章标内容!");
+		  $("#error_content_id").show();
+		  $("#summent").focus();
+		  return; 
+		}else
+		{
+			var icon = $("#icon").val();
+			if(icon == null || icon == "")
+			{
+				$("#error_content_id").html("内容与图片必须添加其中一个!");
+		  		$("#error_content_id").show();
+		 		$("#summent").focus();
+		  		return; 
+			}
+		}
+	}
+	if(nodename == null || nodename == "")
+	{
+		$("#error_content_id").html("请选择频道!");
+		$("#error_content_id").show();
+		$("#nodename").focus();
+		return;
+	}
+	//summent=summent.replace(/\n/g,'<br />');
+	//summent = summent.replace(/ /g, '&nbsp;');
+	var radio = "";
+	var ok=document.getElementsByName("radio");
+	for(i=0;i<ok.length;i++)
+	{
+		if (ok[i].checked == true){
+			radio = ok[i].value;
+		}
+	}
+	if (radio == ""){
+		$("#error_content_id").html("请还没有选择相应的模版!");
+		$("#error_content_id").show();
+		return;
+	}
+	var html = "";
+	icon1 = "";
+	icon2 = ""
+	if(icon == null || icon == "")
+	{
+		icon = "";
+	}else{
+		icon1 = icon.split("size")[0];
+		icon2 = icon.split("size")[1].split(".")[1];
+	}
+	if(radio == "1")
+	{
+		if(icon != null && icon != "")
+		{
+			//icon = icon+"?height=305";
+		}
+		html = "<div style=' margin-left:10px; width:300px; height:470px;'><div id='templates_trends_id' style='display:none'>1</div><div style=' width:300px;  margin:0 auto; '><img onclik=\"javascript:document.location.href='itrendsimg"+icon+"'\" src=\""+icon+"\" style='width:300px; height:305px; margin-top:10px; margin-bottom:15px;' /></div><div style='width:270px; margin-left:15px;'><div style='font-size:20px; font-weight:bold;'>"+title+"</div><div style='height:10px; border-top:1px solid #006; margin-top:10px;'></div><div style='height:100px;font-size:14px; overflow-y: scroll;track-color:#fff; base-color:#fff;line-height:22px;' id='content_edit_summent_v'>"+summent+"</div></div></div>";		
+	}else if(radio == "2")
+	{
+		if(icon != null && icon != "")
+		{
+			//icon = icon+"?height=480";
+		}
+		html = "<div style='width:320px; '><div id='templates_trends_id' style='display:none'>2</div><div style='width:320px;'><img  onclik=\"javascript:document.location.href='itrendsimg"+icon+"'\" src=\""+icon+"\" style='width:320px; height:480px;'  /></div><div style='width:280px; left:20px; float:left; position:absolute; z-index:100; top:300px;'><div style='font-size:20px; font-weight:bold;color:#fff; '>"+title+"</div><div style='height:10px; border-top:1px solid #fff; margin-top:10px;'></div><div style='height:110px;font-size:14px; color:#fff; overflow-y: scroll;line-height:22px;' id='content_edit_summent_v'>"+summent+"</div></div></div>";
+	}
+	CKEDITOR.instances.summent.setData(html);
+	$("#summent").val(CKEDITOR.instances.summent.getData()); 
+	var Paramlist = $('#edit_form').serialize();
+	var url = "/admin/edit_info";
+	$.post(url,Paramlist,function(result){
+		if(result != null)
+		{
+			if(result.result == "ok")
+			{
+				$("#error_content_id").html("文章修改成功!");
+				$("#error_content_id").show();
+				window.setInterval("window.location='/admin/info'",3000);
+			}else
+			{
+				$("#error_content_id").html("服务错误请刷新后进行操作!");
+				$("#error_content_id").show();
+			}
+		}
+	});
+});
+
+//delete info
+function del_info(id,type)
+{
+	var infoidlist = "";
+	if(type=="1")
+	{
+		var el=document.getElementsByName("checkbox");
+		var elem = false;
+		for (var i=0;i<el.length;i++) 
+		{ 
+			if(el[i].checked==true) 
+			{ 
+				infoidlist = infoidlist+"$"+el[i].value;
+				elem = true;
+			} 
+		} 
+		if(!elem)
+		{
+			$("#error_content_id").html("请选择文章!");
+			$("#error_content_id").show();
+			return;
+		}
+	}else
+	{
+		infoidlist = id;
+	}
+	var Url = "/admin/del_info";
+	var infoidlisttnew =  infoidlist.trim();
+    var param = {id:infoidlisttnew};
+    $.post(Url,param,function(result){
+    	if(result != null)
+		{
+			if(result.result == "ok")
+			{
+				window.location="/admin/info";
+			}else
+			{
+				$("#error_content_id").html("服务错误请刷新后进行操作!");
+				$("#error_content_id").show();
+			}
+		}
+    });		
+};
+
+
+
+
+
+function del_img(num_p)
+{
+  var param = $("#icon").val();
+  //$("#view_img").remove("#upload_img"+num_p);
+  $("#upload_img"+num_p).hide();
+  var paramnew = "";
+  lists = param.split("$");
+  for(i=0;i<lists.length-1;i++)
+  {
+    if(lists[i] != null && (i+1) != num_p)
+    {
+      paramnew = paramnew + lists[i]+"$";
+    }
+  }
+  $("#icon").val(paramnew);
+}

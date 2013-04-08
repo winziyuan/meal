@@ -1,0 +1,81 @@
+{% extends "base/base.html" %}
+{% block content %}
+
+	<!-- page-header-->
+      <div class="page-header">
+        <h3>系统用户-修改</h3>
+                <div class="fh"><a href="javascript:history.go(-1)">返回</a></div>
+		
+      </div>
+	  <!-- /page-header-->
+	  <span id="error_content_id" class="yell"></span>
+
+	  <form id="form" >
+	  	{%for u in user %}
+	  <table class="table table-striped table-bordered table-condensed">
+        <tbody>
+     
+           <tr>
+            <td class="w230">用户名：</td>
+            <td><input name="name" id="name" type="input-xlarge" value="{{u.name|default:''}}" ></td>
+          </tr>
+          <tr>
+            <td class="w230">备注：</td>
+            <td><input name="desc" id="desc" type="input-xlarge" value="{{u.descs|default:''}}" ></td>
+          </tr>
+          <tr>
+            <td class="w230">邮箱：</td>
+            <td><input name="email" id="email" type="input-xlarge" value="{{u.email|default:''}}" disabled="disabled"></td>
+          </tr>
+          <tr>
+            <td class="w230">电话：</td>
+            <td><input name="phone" id="phone" type="input-xlarge" value="{{u.phone|default:''}}"></td>
+          </tr>
+          <tr>
+            <td class="w230">密码：</td>
+            <td><input name="passwd" id="passwd" type="password" value="{{u.passwd|default:''}}"></td>
+          </tr>
+
+          <tr>
+            <td class="w230">注册时间：</td>
+            <td><input name="createtime" id="createtime" type="input-xlarge"  readonly value="{{u.createtime|default:''}}">
+            </td>
+          </tr>
+           
+
+          <tr>
+            <td class="w230">是否禁用：</td>
+            <td><input type="radio" value="true" id="disable" name="disable" {% if u.disable == "true"%} checked {% endif %} onclick="radio_change(this.value)">是&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            	<input type="radio" value="false" id="disable" name="disable" {% if u.disable == "false"%} checked {% endif %} onclick="radio_change(this.value)">否</td>
+          </tr>
+          <tr>
+            <td class="w230"></td>
+            <td>
+                <input type="hidden" name="id" id="id" value="{{u.id}}"/>
+                 <input type="hidden" name="radio_sel" id="radio_sel" />
+            	<button type="button" class="btn btn-large btn-primary" id="update_user_">确定</button></td>
+          </tr>
+        </tbody>
+      </table>
+      {% endfor %}
+      </form>
+      <input type="hidden" id="change_" value=true />
+<script type="text/javascript">
+       function radio_change(val){
+      // alert("edit_radio  b="+edit_radio);
+       edit_radio=val;
+       //alert("edit_radio  a="+edit_radio);
+  };
+ 	
+ 	var pa = true;
+ 	$(document).ready(function()   
+    {   
+        $("form :input").change(function ()   
+        {   
+        	pa = false;
+        	$("#change_").val(pa);
+        }); 
+	});	
+</script>
+<script src="{{_base_url}}/static/meal/js/meda_admin_userlist.js"></script>
+{% endblock %}

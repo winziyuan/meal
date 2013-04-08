@@ -1,0 +1,27 @@
+[{boss, [
+    {path, "../ChicagoBoss"},
+    {applications, [meal]},
+    {db_host, "localhost"},
+    {db_port, 3306},
+    {db_adapter, mysql},
+    {db_username, "root"},
+    {db_password, "root"},
+    {db_database, "meal"},
+    {log_dir, "log"},
+    {server, misultin},
+    {port, 8001},
+    %{session_key, "_boss_session"},
+    %{session_adapter, mnesia},
+    %{session_exp_time, 525600}
+
+
+    {session_adapter, mock},
+    {session_key, "_boss_session"},
+    {session_exp_time, 525600}
+    %{vm_name, [name,"xxc@meal.com"]}
+]},
+{ meal, [
+    {path, "../meal"},
+    {base_url, "/"}
+]}
+].

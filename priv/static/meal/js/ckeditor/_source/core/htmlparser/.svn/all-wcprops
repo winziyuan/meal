@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/huanyue/!svn/ver/30/server/trunk/trends/priv/static/trends/js/ckeditor/_source/core/htmlparser
+END
+cdata.js
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/huanyue/!svn/ver/30/server/trunk/trends/priv/static/trends/js/ckeditor/_source/core/htmlparser/cdata.js
+END
+basicwriter.js
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/huanyue/!svn/ver/30/server/trunk/trends/priv/static/trends/js/ckeditor/_source/core/htmlparser/basicwriter.js
+END
+comment.js
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/huanyue/!svn/ver/30/server/trunk/trends/priv/static/trends/js/ckeditor/_source/core/htmlparser/comment.js
+END
+fragment.js
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/huanyue/!svn/ver/30/server/trunk/trends/priv/static/trends/js/ckeditor/_source/core/htmlparser/fragment.js
+END
+text.js
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/huanyue/!svn/ver/30/server/trunk/trends/priv/static/trends/js/ckeditor/_source/core/htmlparser/text.js
+END
+filter.js
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/huanyue/!svn/ver/30/server/trunk/trends/priv/static/trends/js/ckeditor/_source/core/htmlparser/filter.js
+END
+element.js
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/huanyue/!svn/ver/30/server/trunk/trends/priv/static/trends/js/ckeditor/_source/core/htmlparser/element.js
+END

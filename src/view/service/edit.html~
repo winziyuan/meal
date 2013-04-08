@@ -1,0 +1,135 @@
+{% extends "base/base.html" %}
+{% block content %}
+<!-- container -->
+<div class="container" >
+	<!-- page-header-->
+      <div class="page-header">
+        <h3>服务商用户-修改</h3>
+		<div class="fh"><a href="/service/show">返回</a></div>
+               
+      </div>
+	  <!-- /page-header-->
+	
+	  		
+                 
+	  <span id="error_content_id" class="yell"></span>
+	  <form action="" method="post" id="edit_seller_form">
+	  <table class="table table-striped table-bordered table-condensed">
+        <tbody>
+          <tr>
+            <td class="w230">服务商名
+              ：</td>
+            <td><input type="text" id="name" name="name" value="{{service.name|default:''}}"></td>
+          </tr>
+            <tr>
+            <td class="w230">邮箱：</td>
+            <td>
+            	<input type="email" name="email" id="email" value="{{service.email|default:''}}">            
+            </td>
+          </tr>
+         
+          <tr>
+            <td class="w230">认证密码：</td>
+            <td>
+            	<input type="password" name="passwd" id="passwd" value="{{service.passwd|default:''}}">            
+            </td>
+          </tr>
+          <tr>
+            <td class="w230">确认密码：</td>
+            <td>
+              <input type="password"  name="repasswd" id="repasswd" value="{{service.passwd|default:''}}">            
+            </td>
+          </tr>
+           <tr>
+            <td class="w230">简介：</td>
+            <td>
+            	<input type="text" name="descs" id="descs" value="{{service.descs|default:''}}">            
+            </td>
+          </tr>
+            <tr>
+            <td class="w230">联系方式1(手机)：</td>
+            <td>
+              <input type="number"  name="phone" id="phone" value="{{service.phone|default:''}}">            
+            </td>
+          </tr>
+          <tr>
+         <td class="w230">联系方式2(座机)：</td>
+            <td>
+              <input type="number"  name="tel" id="tel" value="{{service.tel|default:''}}">            
+            </td>
+          </tr>
+          <tr>
+          <td class="w230">支付方式：</td>           
+              <td>
+	        <input type="radio" name="paytype" value="cash_pay" {% if service.paytype == "cash_pay" %} checked {% endif %} />现金&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" name="paytype" value="card_pay" {% if service.paytype == "card_pay" %} checked {% endif %}  /> 刷卡
+            </td>                    
+          </tr>
+          <tr>
+          <td class="w230">当前状态：</td>           
+              <td>
+	        <input type="radio" name="state" value="able" {% if service.state == "able" %} checked {% endif %} />正常服务&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" name="state" value="disable" {% if service.state == "disable" %} checked {% endif %} /> 暂停服务
+            </td>                    
+          </tr>
+         <tr>
+          <td class="w230">是否禁用：</td>           
+              <td>
+	        <input type="radio" name="isused" value="true" {% if service.isused == "true" %} checked {% endif %} />否&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" name="isused" value="false" {% if service.isused == "false" %} checked {% endif %} /> 是
+            </td>                    
+          </tr>
+
+	  <tr>
+          <td class="w230">地址：</td>           
+              <td>
+               <textarea cols="50" name="address" id="address">{{service.address|default:''}}</textarea>
+	      
+            </td>                    
+          </tr>
+            <input type="hidden" name="id" id="id" value="{{service.id}}"/>
+           <input type="hidden" name="icon" id="icon" value="{{service.logo}}"/>
+          </form>
+	   <tr>            
+            <td class="w230">LOGO/封面：</td>
+            <td>
+	            <form action="{{img_upload_url}}" method="POST" id="upload_img" enctype="multipart/form-data" target="ifa">
+            		<span class="btn btn-success fileinput-button">                    	
+                    	<span>选择文件</span>
+                    	<input type="file" name="files" >
+                    </span>
+            	</form>
+            	
+            </td>
+          </tr>
+          <tr>
+            <td class="w230">预览：</td>
+            <td id="view_img">
+	         <img width='90' height='78' src='{{service.logo}}'  />
+            </td>
+          </tr>
+
+          <tr>
+            <td class="w230"></td>
+            <td><button class="btn btn-large btn-primary" id="edit_submit" type="button">确定</button></td>
+          </tr>
+        </tbody>
+      </table>
+    
+</div>
+<iframe id="ifa" src="javascript:void(0);" style="display:none;" name="ifa" width="220" height="30"></iframe>
+<script type="text/javascript">
+ 	
+ 	var pa = true;
+ 	$(document).ready(function()   
+    {   
+        $("form :input").change(function ()   
+        {   
+        	pa = false;
+        	$("#change_").val(pa);
+        }); 
+	});	
+</script>
+<script src="{{_base_url}}/static/meal/js/seller.js"></script>
+<!-- /.container -->
+{% endblock %}

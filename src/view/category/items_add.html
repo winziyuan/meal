@@ -1,0 +1,102 @@
+{% extends "base/base.html" %}
+{% block content %}
+
+	<!-- page-header-->
+      <div class="page-header">
+        <h3>食物</h3>
+      </div>
+	  <!-- /page-header-->
+	
+	  <form class="well pan form-inline" action="/admin/show"  id="user_post_page" method="post">
+	  	<input type="hidden" name="page_post" id="page_post" value="{{current_p}}"/>
+        <input type="hidden" name="count_post" id="count_post" value="{{page_count}}"/>
+         
+        <p>用户名 &nbsp;
+          <input type="input-xlarge" name="name" value="{{name_|default:''}}"></p>
+        
+        <p>邮箱
+          <input type="input-xlarge" name="email" value="{{email|default:''}}"></p>
+        <p>备注
+          <input type="input-xlarge" name="desc" value="{{desc|default:''}}"></p> 
+        <p>电话
+          <input type="input-xlarge" name="phone" value="{{phone|default:''}}"></p> 
+        <p>开始时间&nbsp;
+        <input type="text" name="starttime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" readonly value="{{ starttime|default:''}}"></p>
+        <p>结束时间
+        <input type="text" name="endtime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" readonly value="{{ endtime|default:''}}" ></p>
+        
+  
+        <p >是否禁用&nbsp;&nbsp;
+        <select name="disable" >
+        	<option value="" {% if disable!="true" and disable!="false"%} selected {% endif %}>请选择</option>
+	        <option value="true" {% if disable=="true" %} selected {% endif %}>是</option>
+	        <option value="false" {% if disable=="false" %} selected {% endif %}>否</option>
+        </select>
+            
+        </p>
+        <p>
+          <button type="submit" class="btn btn-success" id="search">搜索</button>
+        </p>
+        <div class="clear"></div>
+      </form>
+      
+	  <div class="g2"><span id="error_content_id" class="yell"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  	
+                <!--<input class="btn btn-success" type="button" onclick="window.location='/adminaccount/trends_user'" value="搜索"></input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+                <input class="btn" type="button" onclick="add('',1,{{controller}},{{relateid}})" value="添加用户"></input>&nbsp;&nbsp;&nbsp;&nbsp;
+	  	<input class="btn" type="button" onclick="del_food('',1)" value="删除"></input></div>
+	  <table class="table table-striped table-bordered table-condensed ter">
+        <thead>
+          <tr>
+            <th><input type="checkbox" id="inlineCheckbox" onclick="selectAll()" name="" value="option1">&nbsp;全选</th>
+            <th>名称</th>
+            <th>描述</th>
+            <th>图片</th>
+            <th>价格</th>
+            <th>单位</th>
+            <th>是否使用</th>  
+            <th>创建者</th>           
+            <th>创建时间</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <form method="get" id="user_get_page" action="/food/show">
+        <tbody>
+        	{% for food in items %}
+        		<tr id="item_{{food.id}}">
+		            <td><input type="checkbox" id="inlineCheckbox1" name="checkbox" value="{{food.id}}"></td>
+                            <td>{{food.name}}</td>
+                            <td>{{food.desc}}</td>		           
+		            <td> <img width="90" height="78" src="{{food.image|default:''}}"  /></td>		          
+                            <td>{{food.price}}</td>  
+                            <td>{% if food.unit == "Fen" %}份{% else %}盒{% endif %}</td>
+                            <td>{% if food.isused == "true" %}是{% else %}否{% endif %}</td> 
+                            <td>{{food.sellername}}</td>                      
+                            <td>{{food.createtime}}</td>
+		            <td><a href="/food/edit/{{food.id}}"  id="user_edit_" >修改</a> 
+		            	<a href="javascript:void(0);" id="user_del_" onclick="del_food('{{food.id}}',2)">删除</a>
+		            </td>
+          		</tr>
+        	{% endfor %}
+        </tbody>
+        <input type="hidden" name="page_get" id="page_get" value="{{current_p}}"/>
+        <input type="hidden"  id="count_get" value="{{page_count}}"/>
+        </form>
+      </table>
+	  <!-- /.pagination -->
+      <div class="pagination">
+      	<input type="hidden" name="method_type" id="method_type" value="{{method_type}}"/>
+        <ul>
+          <li {% if current_p=="1" %} class="disabled" {% endif %}><a href="javascript:void(0);" {% if current_p=="1" %} class="disabled" {% endif %} id="page_on" >上一页</a></li>
+          <li {% if current_p==page_count %}class="disabled" {% endif %}><a href="javascript:void(0);" {% if current_p=="1" %} class="disabled" {% endif %} id="page_under">下一页</a></li>		  
+        </ul>
+		<ul>第<strong class="red">{{current_p}}</strong>页/共{{page_count}}页/食物数: <strong class="blue">{{count}}</strong></ul>
+		<ul>跳转至 <input type="text" id="page_go_number" placeholder="1" class="span1"> 页　<button class="btn" type="button" id="page_go">确定</button></ul>
+      </div>
+	  <div class="clear"></div>
+	  <!-- container -->
+
+<script language="javascript" type="text/javascript" src="{{_base_url}}/static/meal/js/time/WdatePicker.js"></script>
+<script src="{{_base_url}}/static/meal/js/food.js"></script>
+<script src="{{_base_url}}/static/meal/js/base.js"></script>
+{% endblock %}

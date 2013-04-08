@@ -1,0 +1,89 @@
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<title> - jsFiddle demo</title>
+
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+    	<script type="text/javascript">
+			//<![CDATA[
+
+			$(function() {
+				var chart;
+				$(document).ready(function() {
+					//alert(Date.parse("2012-09-12 12:23:23")+"  "+Date.UTC(2012,09,12,12,23,23)+"  "+Date().toString());
+					chart = new Highcharts.Chart({
+						chart : {
+							renderTo : 'container',
+							type : 'spline'
+						},
+						title : {
+							text : '时尚在线统计系统'
+						},
+						subtitle : {
+							text : '注册用户以及活跃用户情况一览表'
+						},
+						xAxis : {
+							type : 'datetime',
+							dateTimeLabelFormats : {// don't display the dummy year
+								month : "%H:%M"
+							}
+						},
+						yAxis : {
+							title : {
+								text : '用户数'
+							},
+							min : 0
+						},
+						tooltip : {
+							formatter : function() {
+								return '<b>' + this.series.name + '</b>'+Highcharts.dateFormat('%H:%M', this.x) +"  "+ this.y + '个';
+							}
+						},
+
+						series : [{
+							name : '在线用户',
+							data : [
+									[Date.UTC(2012, 7, 10, 01,02,00), 3 ],
+				                    [Date.UTC(2012, 7, 10, 02,02,00), 9 ],
+				                    [Date.UTC(2012, 7, 10, 03,02,00), 7 ],
+				                    [Date.UTC(2012, 7, 10, 04,02,00), 8 ],
+				                    [Date.UTC(2012, 7, 10, 05,02,00), 6 ],
+				                    [Date.UTC(2012, 7, 10, 06,02,00), 6 ],
+				                    [Date.UTC(2012, 7, 10, 07,02,00), 67],
+				                    [Date.UTC(2012, 7, 10, 08,0 2,00), 80],
+				                    [Date.UTC(2012, 7, 10, 09, 02,00), 80],
+				                    [Date.UTC(2012, 7, 10, 10, 02,00), 192],
+				                    [Date.UTC(2012, 7, 10, 11, 02,00), 249],
+				                    [Date.UTC(2012, 7, 10, 12, 02,00), 279],
+				                    [Date.UTC(2012, 7, 10, 13, 02,00), 273],
+				                    [Date.UTC(2012, 7, 10, 14, 02,00), 261],
+				                    [Date.UTC(2012, 7, 10, 15, 02,00), 276],
+				                    [Date.UTC(2012, 7, 10, 16, 02,00), 282],
+				                    [Date.UTC(2012, 7, 10, 17, 02,00), 28 ],
+				                    [Date.UTC(2012, 7, 10, 18, 02,00), 21 ],
+				                    [Date.UTC(2012, 7, 10, 19, 02,00), 11 ],
+				                    [Date.UTC(2012, 7, 10, 20, 02,00), 25],
+				                    [Date.UTC(2012, 7, 10, 21, 02,00), 0   ]
+								   ]
+						}
+						
+						]
+					});
+				});
+
+			});
+			//]]>
+		</script>
+
+	</head>
+	<body>
+		<script src="http://code.highcharts.com/highcharts.js"></script>
+		<script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+		<div id="container" style="min-width: 400px; height: 400px; margin: 0 auto">
+			
+		</div>
+
+	</body>
+</html>

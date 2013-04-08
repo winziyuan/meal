@@ -1,0 +1,89 @@
+{% extends "base/base.html" %}
+{% block content %}
+<!-- container -->
+<div class="container" >
+	<!-- page-header-->
+      <div class="page-header">
+        <h3>组合-修改</h3>
+		<div class="fh"><a href="/groups/show">返回</a></div>
+               
+      </div>
+	  <!-- /page-header-->
+	
+	  		
+                 
+	  <span id="error_content_id" class="yell"></span>
+	  <form action="" method="post" id="edit_groups_form">
+	  <table class="table table-striped table-bordered table-condensed">
+        <tbody>
+          <tr>
+            <td class="w230">分类名
+              ：</td>
+            <td><input type="text" id="name" name="name" value="{{groups.name}}"></td>
+          </tr>
+
+           <tr>
+            <td class="w230">描述：</td>
+            <td>
+            	<input type="text" name="desc" id="desc" value="{{groups.desc}}">            
+            </td>
+          </tr>
+        
+         
+         <tr>
+          <td class="w230">是否使用：</td>           
+              <td>
+	        <input type="radio" name="isused" value="true" {% if groups.isused == "true" %} checked {% endif %} />是&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" name="isused" value="false" {% if groups.isused == "false" %} checked {% endif %} />否
+            </td>                    
+          </tr>
+
+           <input type="hidden" name="id" id="id" value="{{groups.id}}"/>
+           <input type="hidden" name="groupmoney_" id="groupmoney_" value="{{groups.groupmoney}}"/>
+           <input type="hidden" name="percentage" id="percentage" value="{{groups.percentage}}"/>
+         <tr>
+            <td class="w230">总价：</td>
+            <td>
+              <span  name="tatalmoney_" id="tatalmoney_" value="{{groups.tatalmoney}}">{{groups.tatalmoney}}</span>        
+            </td>
+          </tr>
+         <tr>
+            <td class="w230">组合价：</td>
+            <td>
+              <input type="number"  name="groupmoney" id="groupmoney" value="{{groups.groupmoney}}" min=0></input>           
+            </td>
+          </tr>
+         <tr>
+            <td class="w230">优惠：</td>
+            <td>
+              <span  name="percentage_" id="percentage_" value="{{groups.percentage}}">{{groups.percentage}}</span>          
+            </td>
+          </tr>
+
+          </form>
+	  
+
+          <tr>
+            <td class="w230"></td>
+            <td><button class="btn btn-large btn-primary" id="edit_submit" type="button">确定</button></td>
+          </tr>
+        </tbody>
+      </table>
+    
+</div>
+<iframe id="ifa" src="javascript:void(0);" style="display:none;" name="ifa" width="220" height="30"></iframe>
+<script type="text/javascript">
+ 	//$("#createtime_old").val(decodeURI("{{createtime}}"));
+ 	var pa = true;
+ 	$(document).ready(function()   
+    {   
+        $("form :input").change(function ()   
+        {   
+        	pa = false;
+        	$("#change_").val(pa);
+        }); 
+	});	
+</script>
+<script src="{{_base_url}}/static/meal/js/groups.js"></script>
+<!-- /.container -->
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "base/base.html" %}
+{% block content %}
+<!-- container -->
+<div class="container" >
+	<!-- page-header-->
+      <div class="page-header">
+        <h3>普通用户-添加</h3>
+		<div class="fh"><a href="/seller/show">返回</a></div>
+               
+      </div>
+	  <!-- /page-header-->
+	
+	  		
+                 
+	  <span id="error_content_id" class="yell"></span>
+	  <form action="" method="post" id="create_consumer_form">
+	  <table class="table table-striped table-bordered table-condensed">
+        <tbody>
+          <tr>
+            <td class="w230">用户名：</td>
+            <td><input type="text" id="name" name="name" ></td>
+          </tr>          
+         
+          <tr>
+            <td class="w230">认证密码：</td>
+            <td>
+            	<input type="password" name="passwd" id="passwd">            
+            </td>
+          </tr>
+          <tr>
+            <td class="w230">确认密码：</td>
+            <td>
+              <input type="password"  name="repasswd" id="repasswd" >            
+            </td>
+          </tr>
+       
+
+          <tr>
+            <td class="w230"></td>
+            <td><button class="btn btn-large btn-primary" id="create_submit" type="button">确定</button></td>
+          </tr>
+        </tbody>
+      </table>
+      </form>
+</div>
+
+<script src="{{_base_url}}/static/meal/js/consumer.js"></script>
+<!-- /.container -->
+{% endblock %}

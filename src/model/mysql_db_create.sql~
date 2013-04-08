@@ -1,0 +1,34 @@
+-- MySQL database create for ChicagoBoss_MySQL_App
+
+-- Connect with 'mysql -u root'
+-- This database is not locked down in anyway
+
+-- CREATE the new database/schema
+CREATE DATABASE meal CHARACTER SET utf8;
+
+-- CREATE the new user by GRANTing full access
+--GRANT ALL ON cb_mysql.* TO cb_mysql@'localhost' IDENTIFIED BY 'cb_mysql';
+
+
+CREATE TABLE meal.admins (
+  id INTEGER AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255),
+  desc text,
+  passwd VARCHAR(20),
+  type VARCHAR(20),
+  email VARCHAR(100),
+  phone VARCHAR(100),
+  createtime VARCHAR(100),
+  disable VARCHAR(10),
+  timesec decimal
+  );
+CREATE TABLE meal.categorys (
+  id INTEGER AUTO_INCREMENT PRIMARY KEY,
+  desc text,
+  relateid VARCHAR(100),
+  name VARCHAR(255),
+  creator VARCHAR(100),
+  createtime VARCHAR(100),
+  Isused VARCHAR(10),
+  timesec decimal
+  );
